@@ -21,6 +21,10 @@ app.use(cors());
 app.use(express.json());
 const port = process.env.PORT || 8000;
 
+app.get('/api', (req, res) => {
+    res.json({ message: 'API is running. Use /api/auth, /api/bookings, or /api/events.' });
+});
+
 //routes
 app.use("/api/auth", authRoute)
 app.use("/api/bookings", bookingRoute)
