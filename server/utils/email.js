@@ -3,11 +3,14 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
     },
+    connectionTimeout: 30000,
 });
 
 const sendOtpEmail = async (email, otp, type) => {
@@ -18,7 +21,7 @@ const sendOtpEmail = async (email, otp, type) => {
             : "Plase use the following OTP verify and confirm your event booking"
         const mailOptions = {
             from: process.env.EMAIL_USER,
-            to:email,
+            to: email,
             subject: "Your OTP Code",
             html: `
                 <div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
